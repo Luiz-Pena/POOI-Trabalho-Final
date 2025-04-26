@@ -4,16 +4,30 @@
  */
 package com.mycompany.appparque.frames;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author luizh
  */
 public class Funcionario extends javax.swing.JInternalFrame {
-
+    private Statement stm;
+    private Connection con;
+    private ResultSet res;
+    
+    
     /**
      * Creates new form Funcionario
      */
-    public Funcionario() {
+    public Funcionario(Connection con, Statement stm, ResultSet res) {
+        this.con = con;
+        this.stm = stm;
+        this.res = res;
         initComponents();
     }
 
@@ -26,13 +40,30 @@ public class Funcionario extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jBConsultar = new javax.swing.JButton();
-        jBAtualizar = new javax.swing.JButton();
+        jDesktopPane1 = new javax.swing.JDesktopPane();
         jBExcluir = new javax.swing.JButton();
+        jBAdicionar = new javax.swing.JButton();
+        jBAtualizar = new javax.swing.JButton();
+        jBConsultar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
-        jBConsultar.setText("Consultar");
+        setClosable(true);
+        setResizable(true);
+
+        jBExcluir.setText("Excluir");
+        jBExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBExcluirActionPerformed(evt);
+            }
+        });
+
+        jBAdicionar.setText("Adicionar");
+        jBAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAdicionarActionPerformed(evt);
+            }
+        });
 
         jBAtualizar.setText("Atualizar");
         jBAtualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -41,7 +72,12 @@ public class Funcionario extends javax.swing.JInternalFrame {
             }
         });
 
-        jBExcluir.setText("Excluir");
+        jBConsultar.setText("Consultar");
+        jBConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBConsultarActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -56,47 +92,127 @@ public class Funcionario extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        jDesktopPane1.setLayer(jBExcluir, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jBAdicionar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jBAtualizar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jBConsultar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
+        jDesktopPane1.setLayout(jDesktopPane1Layout);
+        jDesktopPane1Layout.setHorizontalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+                        .addGap(0, 1, Short.MAX_VALUE)
+                        .addComponent(jBConsultar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBAtualizar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBAdicionar)
+                        .addGap(59, 59, 59)
+                        .addComponent(jBExcluir))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jDesktopPane1Layout.setVerticalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBExcluir)
+                    .addComponent(jBAdicionar)
+                    .addComponent(jBAtualizar)
+                    .addComponent(jBConsultar))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jBConsultar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBAtualizar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBExcluir)))
-                .addContainerGap(22, Short.MAX_VALUE))
+            .addComponent(jDesktopPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBConsultar)
-                    .addComponent(jBAtualizar)
-                    .addComponent(jBExcluir))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(73, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAtualizarActionPerformed
-        // TODO add your handling code here:
+        try {
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            String comando = "UPDATE funcionario SET nome='" +model.getValueAt(jTable1.getSelectedRow(), 1)+ "', funcao='" +model.getValueAt(jTable1.getSelectedRow(), 2)+ "' WHERE id=" +model.getValueAt(jTable1.getSelectedRow(), 0);
+            stm = con.createStatement();
+            
+            stm.executeUpdate(comando);
+            
+            JOptionPane.showMessageDialog(rootPane, "Registro atualizado");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao atualizar o registro");
+        }
     }//GEN-LAST:event_jBAtualizarActionPerformed
+
+    private void jBConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBConsultarActionPerformed
+        try {
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            String comando = "SELECT * FROM funcionario ORDER BY id";
+            stm = con.createStatement();
+            res = stm.executeQuery(comando);
+            
+            model.setNumRows(0);
+            
+            while (res.next()) {
+                model.addRow(new Object[]{
+                    res.getString("id"),
+                    res.getString("nome"),
+                    res.getString("funcao")
+                });
+            }
+            
+            model.setNumRows(model.getRowCount() + 5);
+            
+            JOptionPane.showMessageDialog(rootPane, "Consulta finalizada!");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao consultar o banco!");
+        }
+    }//GEN-LAST:event_jBConsultarActionPerformed
+
+    private void jBExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExcluirActionPerformed
+        try {
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            String comando = "DELETE FROM funcionario WHERE id="+model.getValueAt(jTable1.getSelectedRow(), 0);
+            stm = con.createStatement();
+            
+            stm.executeUpdate(comando);
+            
+            JOptionPane.showMessageDialog(rootPane, "Registro excluido");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao Excluir");
+        }
+    }//GEN-LAST:event_jBExcluirActionPerformed
+
+    private void jBAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAdicionarActionPerformed
+        Funcionario_ADD form = new Funcionario_ADD(con, stm);
+        jDesktopPane1.add(form);
+        form.show();
+    }//GEN-LAST:event_jBAdicionarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBAdicionar;
     private javax.swing.JButton jBAtualizar;
     private javax.swing.JButton jBConsultar;
     private javax.swing.JButton jBExcluir;
+    private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
