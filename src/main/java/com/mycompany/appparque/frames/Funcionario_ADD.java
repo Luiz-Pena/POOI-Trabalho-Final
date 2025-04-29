@@ -44,6 +44,8 @@ public class Funcionario_ADD extends javax.swing.JInternalFrame {
         jBSalvar = new javax.swing.JButton();
 
         setClosable(true);
+        setMaximizable(true);
+        setResizable(true);
 
         jTNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

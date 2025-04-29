@@ -4,6 +4,12 @@
  */
 package com.mycompany.appparque.frames;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author luizh
@@ -27,21 +33,41 @@ public class Brinquedo extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jBConsultar = new javax.swing.JButton();
-        jBAtualizar = new javax.swing.JButton();
+        jBCadastrar = new javax.swing.JButton();
         jBExcluir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jTextField21 = new javax.swing.JTextField();
+        jTextField22 = new javax.swing.JTextField();
+        jTextField23 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+
+        setClosable(true);
+        setMaximizable(true);
+        setResizable(true);
 
         jBConsultar.setText("Consultar");
-
-        jBAtualizar.setText("Atualizar");
-        jBAtualizar.addActionListener(new java.awt.event.ActionListener() {
+        jBConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBAtualizarActionPerformed(evt);
+                jBConsultarActionPerformed(evt);
+            }
+        });
+
+        jBCadastrar.setText("Cadastrar");
+        jBCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCadastrarActionPerformed(evt);
             }
         });
 
         jBExcluir.setText("Excluir");
+        jBExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBExcluirActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -56,6 +82,24 @@ public class Brinquedo extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        jTextField21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField21ActionPerformed(evt);
+            }
+        });
+
+        jTextField22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField22ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("ID");
+
+        jLabel2.setText("Nome");
+
+        jLabel3.setText("ID Funcionario");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -63,14 +107,21 @@ public class Brinquedo extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBConsultar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBAtualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBExcluir)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addComponent(jBExcluir))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextField23, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBCadastrar)
+                    .addComponent(jLabel3))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -78,26 +129,134 @@ public class Brinquedo extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBConsultar)
-                    .addComponent(jBAtualizar)
+                    .addComponent(jBCadastrar)
                     .addComponent(jBExcluir))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jBAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAtualizarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBAtualizarActionPerformed
+    private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
+        try {
+        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/parque", "root", "mysql");
 
+        String sql = "INSERT INTO brinquedo (ID, Nome, ID_Funcionario) VALUES (?, ?, ?)";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1,Integer.parseInt(jTextField21.getText())); // ID
+        stmt.setString(2, jTextField22.getText()); // Name
+        stmt.setInt(3,Integer.parseInt(jTextField23.getText())); // ID_Funcionario
+        
+
+        stmt.executeUpdate();
+
+        JOptionPane.showMessageDialog(this, "Brinquedo cadastrado com sucesso!");
+
+        conn.close();
+
+        jBConsultarActionPerformed(evt);
+        limparCampos();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Erro ao cadastrar brinquedo: " + e.getMessage());
+    }
+    }//GEN-LAST:event_jBCadastrarActionPerformed
+
+    private void jTextField21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField21ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField21ActionPerformed
+
+    private void jBConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBConsultarActionPerformed
+        try {
+        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/parque", "root", "mysql");
+
+        String sql = "SELECT * FROM brinquedo";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+
+        javax.swing.table.DefaultTableModel modeloTabela = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+        modeloTabela.setRowCount(0); 
+        while (rs.next()) {
+            Object[] linha = {
+                rs.getInt("ID"),
+                rs.getString("Nome"),
+                rs.getInt("ID_Funcionario"),
+                
+            };
+            modeloTabela.addRow(linha);
+        }
+
+        conn.close();
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Erro ao consultar Brinquedo: " + e.getMessage());
+}
+    }//GEN-LAST:event_jBConsultarActionPerformed
+
+    private void jBExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExcluirActionPerformed
+        int linhaSelecionada = jTable1.getSelectedRow();
+    if (linhaSelecionada >= 0) {
+        try {
+            int ID = (int) jTable1.getValueAt(linhaSelecionada, 0);
+
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/parque", "root", "mysql");
+
+            String sql = "DELETE FROM brinquedo WHERE ID = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, ID);
+            stmt.executeUpdate();
+
+            JOptionPane.showMessageDialog(this, "Brinquedo excluído com sucesso!");
+
+            conn.close();
+
+            jBConsultarActionPerformed(evt); // Atualiza a tabela
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao excluir brinquedo: " + e.getMessage());
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "Selecione um brinquedo para excluir!");
+    }
+    }//GEN-LAST:event_jBExcluirActionPerformed
+
+    private void jTextField22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField22ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField22ActionPerformed
+    
+    private void limparCampos() {
+    jTextField21.setText("");
+    jTextField22.setText("");
+    jTextField23.setText("");
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBAtualizar;
+    private javax.swing.JButton jBCadastrar;
     private javax.swing.JButton jBConsultar;
     private javax.swing.JButton jBExcluir;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField21;
+    private javax.swing.JTextField jTextField22;
+    private javax.swing.JTextField jTextField23;
     // End of variables declaration//GEN-END:variables
 }

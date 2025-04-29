@@ -135,7 +135,7 @@ public class FrameParque extends javax.swing.JFrame {
                     .addGroup(jDesktopLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jButton1)))
-                .addContainerGap(357, Short.MAX_VALUE))
+                .addContainerGap(440, Short.MAX_VALUE))
         );
         jDesktopLayout.setVerticalGroup(
             jDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,7 +150,7 @@ public class FrameParque extends javax.swing.JFrame {
                 .addComponent(jRFuncionario)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addContainerGap(175, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -158,12 +158,14 @@ public class FrameParque extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jDesktop))
+                .addComponent(jDesktop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktop)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jDesktop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
